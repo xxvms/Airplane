@@ -2,11 +2,11 @@
 #include <vector>
 #include <algorithm>
 #include <fstream>
-#include <math.h>
+//#include <math.h>
 #include <map>
 
 bool read_file_string(std::vector<std::string>&import_file);
-void garment(std::vector<int>& garment, const std::vector<std::string>& coordinates);
+void garment(std::vector<std::string>& garment, const std::vector<int>& coordinates);
 
 
 int main() {
@@ -21,14 +21,9 @@ int main() {
         std::cout << "test failed" << '\n';
     }
 
-    for (auto a : file){
-
-        std::cout << "reading a: " << a << '\n';
-
-    }
     std::vector<int> garment_max(1000000,0);
 
-    garment(garment_max, file);
+    garment(file, garment_max);
 
     std::cout << "test";
     return 0;
@@ -51,14 +46,19 @@ bool read_file_string(std::vector<std::string>&import_file){
         return true;
 }
 
-void garment(std::vector<int>& garment, const std::vector<std::string>& coordinates){
+void garment(std::vector<std::string>& garment, const std::vector<int>& coordinates){
 
         //#1 @ 306,433: 16x11
 
-        std::string looking_for = "@";
-        auto first = std::find(std::begin(coordinates), std::end(coordinates), looking_for);
+        for (auto a: garment){
 
-        if (first != std::end(coordinates)){
+            std::cout << "inside F: " << a << '\n';
+        }
+
+        std::string looking_for = "@";
+        auto first = std::find(std::begin(garment), std::end(garment), looking_for);
+
+        if (first != std::end(garment)){
 
             std::cout << "what will it print? " << *first <<  " blach " << '\n';
 
@@ -78,7 +78,8 @@ void garment(std::vector<int>& garment, const std::vector<std::string>& coordina
               }
          */
 
-        while (*first != ",")
+       // std::string next_value = ",";
+        //while (*first != next_value)
         {
             //int one = *first;
             //garment.push_back(one);
