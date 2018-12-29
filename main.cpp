@@ -4,6 +4,7 @@
 #include <fstream>
 #include <iterator>
 #include "data_record_TB.h"
+//My solution returns 105071 square inches
 
 
 bool read_file_string(std::vector<std::string>&import_file);
@@ -40,10 +41,10 @@ int main() {
 
     for (auto a : my_data_class){
 
-        if (a.counter > 1){
-            std::cout << "tmp counter: " <<tmp_counter++ << " count: " << a.counter << " ";
-        }
-        std::cout <<'\n';
+           tmp_counter += a.counter;
+
+           std::cout << "value of counter: " << tmp_counter << '\n';
+
     }
 
     std::cout << "test";
@@ -67,7 +68,7 @@ bool read_file_string(std::vector<std::string>&import_file){
 
 
 
-    std::ifstream file("day3.txt");
+    std::ifstream file("day3test.txt");
     std::string data;
     if (!file.is_open()){
         return false;

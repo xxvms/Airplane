@@ -12,7 +12,7 @@ void data_record_TB::read_data_from_grid(std::vector<int> &The_grid, std::vector
     for (int k = 0; k != The_data.size(); k++){
         for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++){
 
-            if (The_grid.at(w) <= 1){
+            if (The_grid.at(w) < 1){
                 continue;
             }else {
                 The_data.at(k).counter++;
