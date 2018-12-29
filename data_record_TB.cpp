@@ -29,7 +29,7 @@ void data_record_TB::set_grid_right(std::vector<int> &The_grid, std::vector<data
         }
 
         for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
-            The_grid.at(h) = +1;
+            The_grid.at(h) +=   1;
         }
     }
 }
