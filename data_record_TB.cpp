@@ -7,32 +7,8 @@
 
 data_record_TB::~data_record_TB() {}
 
-void data_record_TB::read_data_from_grid(std::vector<int> &The_grid, std::vector<data_record_TB>& The_data){
-
-    for (int k = 0; k != The_data.size(); k++){
-        for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++){
-
-            if (The_grid.at(w) < 1){
-                continue;
-            }else {
-                The_data.at(k).counter++;
-            }
-        }
-    }
-}
-void data_record_TB::set_grid_right(std::vector<int> &The_grid, std::vector<data_record_TB>& The_data) {
 
 
-    for (int k = 0; k != The_data.size(); k++) {
-        for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++) {
-            The_grid.at(w) += 1;
-        }
-
-        for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
-            The_grid.at(h) +=   1;
-        }
-    }
-}
 void data_record_TB::print() {
 
     std::cout << "ID: " << ID << '\n';

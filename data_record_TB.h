@@ -24,8 +24,6 @@ public:
     ~data_record_TB();
     void print();
     void counter_print();
-    void set_grid_right(std::vector<int> &The_grid, std::vector<data_record_TB>& The_data);
-    void read_data_from_grid(std::vector<int> &The_grid, std::vector<data_record_TB>& The_data);
 };
 
 

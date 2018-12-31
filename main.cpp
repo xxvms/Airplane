@@ -10,6 +10,10 @@
 bool read_file_string(std::vector<std::string>&import_file);
 void data_processing_stage1(std::vector<std::string> &coordinates_from_file, std::vector<int> &raw_co);
 void setting_up_coordinates(const std::vector<int>& raw, std::vector<data_record_TB>& ready_data_for_use);
+void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data);
+void set_grid_right(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data);
+
+
 
 
 int main() {
@@ -25,7 +29,7 @@ int main() {
         std::cout << "test failed" << '\n';
     }
 
-    std::vector<int> garment_max(1000000,0); // it is used now
+    std::vector <std::vector<int> > garment_max(1000, std::vector<int>(1000, 0)); // it is used now
 
     data_processing_stage1(data_from_file, raw_coordinates); // reading file and saving it as string
 
@@ -33,10 +37,10 @@ int main() {
 
     setting_up_coordinates(raw_coordinates, my_data_class); // converting data to my format
 
-    my_data_class.at(0).set_grid_right(garment_max, my_data_class); // setting up coordinates on the grid for later retrieval
+    set_grid_right(garment_max, my_data_class); // setting up coordinates on the grid for later retrieval //todo need to update my vector of vectors
 
-    my_data_class.at(0).read_data_from_grid(garment_max, my_data_class); // updating counter in my class with the answers I get from set_grid_right
-
+    read_data_from_grid(garment_max, my_data_class); // updating counter in my class with the answers I get from set_grid_right
+    //todo need to update my vector of vectors
     int tmp_counter = 0;
 
     for (auto a : my_data_class){
@@ -68,7 +72,7 @@ bool read_file_string(std::vector<std::string>&import_file){
 
 
 
-    std::ifstream file("day3test.txt");
+    std::ifstream file("day3.txt");
     std::string data;
     if (!file.is_open()){
         return false;
@@ -114,3 +118,54 @@ void data_processing_stage1(std::vector<std::string> &coordinates_from_file, std
         }
 }
 
+void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data){
+
+    for (int k = 0; k != The_data.size(); k++){
+        for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++){
+
+            if (The_grid.at(w).at(w) < 1){
+                std::cout << "-----------------------------\n";
+                std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
+
+                continue;
+            }else {
+                The_data.at(k).counter++;
+                std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
+                std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
+            }
+            for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
+
+                if (The_grid.at(w).at(h) < 1){
+                    std::cout << "-----------------------------\n";
+                    std::cout << "The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
+
+                    continue;
+                }else {
+                    The_data.at(k).counter++;
+                    std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
+                    std::cout << "The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
+                }
+            }
+        }
+    }
+}
+
+void set_grid_right(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data) {
+
+
+    for (int k = 0; k != The_data.size(); k++) {
+        for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++) {
+
+            The_grid.at(w).at(w) += 1;
+            std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
+
+            for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
+                The_grid.at(w).at(h) += 1;
+                std::cout << "The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
+
+            }
+        }
+
+
+    }
+}
