@@ -4,24 +4,22 @@
 #include <fstream>
 #include <iterator>
 #include "data_record_TB.h"
-//My solution returns 105071 square inches
-
+//this solution returns 105071 square inches
 
 bool read_file_string(std::vector<std::string>&import_file);
 void data_processing_stage1(std::vector<std::string> &coordinates_from_file, std::vector<int> &raw_co);
 void setting_up_coordinates(const std::vector<int>& raw, std::vector<data_record_TB>& ready_data_for_use);
 void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data);
 void set_grid_right(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data);
-
-
-
+int counter_result(std::vector<data_record_TB> & counter_stuff);
 
 int main() {
 
-    std::vector<std::string>data_from_file{};
-    std::vector<int>raw_coordinates{};
+    std::vector<std::string>data_from_file{}; //file contain raw info from file
+    std::vector<int>raw_coordinates{}; //
+    std::vector<data_record_TB> my_data_class{}; // vector of my type files
 
-    auto test = read_file_string(data_from_file);
+    auto test = read_file_string(data_from_file); // double checking if file was read correctly plus playing with bool expression to get comfortable with us of it
 
     if (test){
         std::cout << "test is success" << '\n';
@@ -33,29 +31,33 @@ int main() {
 
     data_processing_stage1(data_from_file, raw_coordinates); // reading file and saving it as string
 
-    std::vector<data_record_TB> my_data_class{}; // vector of my type files
 
     setting_up_coordinates(raw_coordinates, my_data_class); // converting data to my format
 
-    set_grid_right(garment_max, my_data_class); // setting up coordinates on the grid for later retrieval //todo need to update my vector of vectors
+    set_grid_right(garment_max, my_data_class); // setting up coordinates on the grid for later retrieval
 
     read_data_from_grid(garment_max, my_data_class); // updating counter in my class with the answers I get from set_grid_right
-    //todo need to update my vector of vectors
-    int tmp_counter = 0;
 
-    for (auto a : my_data_class){
 
-           tmp_counter += a.counter;
-
-           std::cout << "value of counter: " << tmp_counter << '\n';
-
-    }
+    std::cout << "value of counter:: " << counter_result(my_data_class) << '\n'; // printing result of the counter function.
 
     std::cout << "test";
 
 
     return 0;
 }
+
+int counter_result(std::vector<data_record_TB> & counter_stuff){
+    int tmp_counter = 0;
+
+    for (auto a : counter_stuff){
+
+        tmp_counter += a.counter;
+    }
+
+    return tmp_counter;
+}
+
 
 void setting_up_coordinates(const std::vector<int>& raw, std::vector<data_record_TB>& ready_data_for_use){
     int i = 0;
@@ -69,9 +71,6 @@ void setting_up_coordinates(const std::vector<int>& raw, std::vector<data_record
 }
 
 bool read_file_string(std::vector<std::string>&import_file){
-
-
-
     std::ifstream file("day3.txt");
     std::string data;
     if (!file.is_open()){
@@ -123,22 +122,20 @@ void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<da
     for (int k = 0; k != The_data.size(); k++){
         for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++){
 
-            if (The_grid.at(w).at(w) < 1){
-                std::cout << "-----------------------------\n";
-                std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
-
-                continue;
-            }else {
-                The_data.at(k).counter++;
-                std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
-                std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
-            }
+            //if (The_grid.at(w).at(w) > 1){
+               // std::cout << "-----------------------------\n";
+                //std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
+             //   continue;
+            //}else {
+                //The_data.at(k).counter++;
+                //std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
+                //std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
+            //}
             for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
 
-                if (The_grid.at(w).at(h) < 1){
+                if (The_grid.at(w).at(h) > 1){
                     std::cout << "-----------------------------\n";
                     std::cout << "The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
-
                     continue;
                 }else {
                     The_data.at(k).counter++;
@@ -152,7 +149,6 @@ void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<da
 
 void set_grid_right(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data) {
 
-
     for (int k = 0; k != The_data.size(); k++) {
         for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++) {
 
@@ -162,10 +158,7 @@ void set_grid_right(std::vector<std::vector<int>> &The_grid, std::vector<data_re
             for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
                 The_grid.at(w).at(h) += 1;
                 std::cout << "The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
-
             }
         }
-
-
     }
 }
