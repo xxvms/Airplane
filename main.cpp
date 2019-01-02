@@ -122,15 +122,6 @@ void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<da
     for (int k = 0; k != The_data.size(); k++){
         for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++){
 
-            //if (The_grid.at(w).at(w) > 1){
-               // std::cout << "-----------------------------\n";
-                //std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
-             //   continue;
-            //}else {
-                //The_data.at(k).counter++;
-                //std::cout << "xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
-                //std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
-            //}
             for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
 
                 if (The_grid.at(w).at(h) > 1){
@@ -147,13 +138,11 @@ void read_data_from_grid(std::vector<std::vector<int>> &The_grid, std::vector<da
     }
 }
 
+
 void set_grid_right(std::vector<std::vector<int>> &The_grid, std::vector<data_record_TB>& The_data) {
 
     for (int k = 0; k != The_data.size(); k++) {
         for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++) {
-
-            The_grid.at(w).at(w) += 1;
-            std::cout << "The_grid.at(" << w << ").at(" << w << ")" << " is " << The_grid.at(w).at(w) << '\n';
 
             for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++){
                 The_grid.at(w).at(h) += 1;
