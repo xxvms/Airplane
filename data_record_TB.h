@@ -17,12 +17,13 @@ public:
   int h_begin; // 3 B value
   int h_end;   // 5 B value
   int counter;
+  bool clean;
 
 public:
   // data_record_TB();
   data_record_TB(int id, int w_beg, int w_en, int h_beg, int h_en)
       : ID(id), w_begin(w_beg), w_end(w_en), h_begin(h_beg), h_end(h_en),
-        counter(0){};
+        counter(0), clean(true){};
   ~data_record_TB();
   void print();
   void counter_print();

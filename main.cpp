@@ -50,6 +50,14 @@ int main() {
 
   save_result(counter_result(my_data_class));
 
+  for (auto a : my_data_class){
+
+    if(a.clean){
+      std::cout << "ID is: " << a.ID << '\n';
+
+    }
+  }
+
 
   std::cout << "test";
 
@@ -88,7 +96,7 @@ void setting_up_coordinates(const std::vector<int> &raw,
 }
 
 bool read_file_string(std::vector<std::string> &import_file) {
-  std::ifstream file("day3.txt");
+  std::ifstream file("day3test.txt");
   std::string data;
   if (!file.is_open()) {
     return false;
@@ -139,21 +147,35 @@ void read_data_from_grid(std::vector<std::vector<int>> &The_grid,std::vector<dat
   std::ofstream my_file("Out_put_TB_read_data_from_grid.txt");
   if (my_file.is_open()) {
 
-    for (int k = 0; k != The_data.size(); k++) {
+      for (int k = 0; k != The_data.size(); k++) {
       for (int w = The_data.at(k).w_begin; w < The_data.at(k).w_end; w++) {
+
 
         for (int h = The_data.at(k).h_begin; h != The_data.at(k).h_end; h++) {
 
           if (The_grid.at(w).at(h) > 1) {
-            my_file << "-----------------------------\n";
-            my_file  << "The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
+            std::cout << "Before Counter: " << The_data.at(k).counter << '\n';
+            std::cout << "The_Grid.at(" << 3 << ").at(" << 3 << ") = " << The_grid.at(3).at(3) << '\n';
+            std::cout << "The_Grid.at(" << 3 << ").at(" << 4 << ") = " << The_grid.at(3).at(4) << '\n';
+            std::cout << "The_Grid.at(" << 4 << ").at(" << 3 << ") = " << The_grid.at(4).at(3) << '\n';
+            std::cout << "The_Grid.at(" << 4 << ").at(" << 4 << ") = " << The_grid.at(4).at(4) << '\n';
+
+
             The_data.at(k).counter++;
+            The_data.at(k).clean = false;
+            std::cout << "ID: " << The_data.at(k).ID << "\n After Counter: " << The_data.at(k).counter << '\n';
+
             The_grid.at(w).at(h) = 1;
+
+
+              my_file  << "3 The_grid.at(" << w << ").at(" << h << ")" << " is " << The_grid.at(w).at(h) << '\n';
           } else {
               my_file << "xxxxxxxxxxxxxxxxxxxxxxxxxxxx\n";
               continue;
           }
+
         }
+
       }
     }
   } else {
