@@ -17,13 +17,13 @@ public:
   int h_begin; // 3 B value
   int h_end;   // 5 B value
   int counter;
-  bool clean;
+  bool no_overlap;
 
 public:
   // data_record_TB();
   data_record_TB(int id, int w_beg, int w_en, int h_beg, int h_en)
       : ID(id), w_begin(w_beg), w_end(w_en), h_begin(h_beg), h_end(h_en),
-        counter(0), clean(true){};
+        counter(0), no_overlap(true){};
   ~data_record_TB();
   void print();
   void counter_print();
